@@ -1,9 +1,22 @@
-import React from 'react'
+import useFetch from "./custom-hooks/useFetch";
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  const url = "https://randomuser.me/api/";
+  const { data, isLoading, error } = useFetch(url);
 
-export default App
+  if (isLoading) {
+    return <div>Wait for the data</div>;
+  }
+
+  if (error !== null) {
+    return <div>Error</div>;
+  }
+
+  return (
+    <div>
+      {data?.results[0]?.email}
+    </div>
+  );
+};
+
+export default App;
